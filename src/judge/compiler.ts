@@ -12,7 +12,7 @@ export interface CompileResult {
     error?: string;
 }
 
-export async function compile(sourcePath: string): Promise<CompileResult> {
+export async function compile(sourcePath: string, useAsan = false): Promise<CompileResult> {
     const ext = path.extname(sourcePath).toLowerCase();
     const basename = path.basename(sourcePath, ext);
     const dir = path.dirname(sourcePath);
@@ -22,20 +22,23 @@ export async function compile(sourcePath: string): Promise<CompileResult> {
         return { success: true, executablePath: sourcePath };
     }
 
-    const outFile = path.join(tmpDir, `cp_tester_${basename}_${Date.now()}`);
+    const suffix = useAsan ? '_asan' : '';
+    const outFile = path.join(tmpDir, `cp_tester_${basename}_${Date.now()}${suffix}`);
 
+    const asanFlags = useAsan ? '-fsanitize=address -fno-omit-frame-pointer -g ' : '';
     let command: string;
     if (ext === '.cpp') {
-        command = `g++ -std=c++17 -O2 -o "${outFile}" "${sourcePath}"`;
+        command = `g++ -std=c++17 -O2 ${asanFlags}-o "${outFile}" "${sourcePath}"`;
     } else if (ext === '.c') {
-        command = `gcc -O2 -o "${outFile}" "${sourcePath}"`;
+        command = `gcc -O2 ${asanFlags}-o "${outFile}" "${sourcePath}"`;
     } else {
         return { success: false, error: `Unsupported file extension: ${ext}` };
     }
 
     try {
         const { stderr } = await execAsync(command, { timeout: 30000 });
-        if (stderr && stderr.includes('error')) {
+        // Only treat as compile error if stderr contains a real gcc/g++ error pattern
+        if (stderr && /:\s*error:/i.test(stderr)) {
             return { success: false, error: stderr };
         }
         return { success: true, executablePath: outFile };

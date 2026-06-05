@@ -7,6 +7,7 @@ export enum Status {
     MemoryLimitExceeded = 'Memory Limit Exceeded',
     TimeLimitExceeded = 'Time Limit Exceeded',
     WrongAnswer = 'Wrong Answer',
+    MemoryLeak = 'Memory Leak',
 }
 
 export interface TestCase {
@@ -35,6 +36,7 @@ export interface RunResult {
     stdout: string;
     stderr: string;
     exitCode: number | null;
+    signal: string | null;  // e.g. 'SIGSEGV', 'SIGABRT', 'SIGFPE'
     time: number;      // ms
     memory: number;    // MiB
     killed: boolean;

@@ -1,6 +1,6 @@
-# CP Tester（Linux 版）
+# CP Tester（奶娃版）
 
-> version: linux-0.0.0
+> version: linux-0.1.0
 
 > Editor: serendipity_lin@sjtu.edu.cn
 

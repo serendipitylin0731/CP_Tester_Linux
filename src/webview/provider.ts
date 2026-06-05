@@ -155,6 +155,7 @@ export class TesterProvider implements vscode.WebviewViewProvider {
             Status.MemoryLimitExceeded,
             Status.TimeLimitExceeded,
             Status.WrongAnswer,
+            Status.MemoryLeak,
             Status.Pending,
             Status.Accepted,
             Status.None,
@@ -285,7 +286,7 @@ export class TesterProvider implements vscode.WebviewViewProvider {
     private _sendImageList() {
         const setsDir = vscode.Uri.joinPath(this._extensionUri, 'media', 'sets');
         const images: Record<string, string[]> = {};
-        const statuses = ['None', 'Pending', 'AC', 'CE', 'RE', 'MLE', 'TLE', 'WA'];
+        const statuses = ['None', 'Pending', 'AC', 'CE', 'RE', 'MLE', 'TLE', 'WA', 'Leak'];
 
         for (const status of statuses) {
             const dir = vscode.Uri.joinPath(setsDir, status);

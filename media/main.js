@@ -73,6 +73,7 @@
         'Memory Limit Exceeded': '#ff9f31',
         'Time Limit Exceeded': '#ff9f31',
         'Wrong Answer': '#df2500',
+        'Memory Leak': '#9B59B6',
     };
 
     const statusAbbrMap = {
@@ -82,6 +83,7 @@
         'Memory Limit Exceeded': 'MLE',
         'Time Limit Exceeded': 'TLE',
         'Wrong Answer': 'WA',
+        'Memory Leak': 'Leak',
         'Pending': 'Pending',
         'None': '',
     };
@@ -243,6 +245,7 @@
         'Memory Limit Exceeded': 'MLE',
         'Time Limit Exceeded': 'TLE',
         'Wrong Answer': 'WA',
+        'Memory Leak': 'Leak',
         'Pending': 'Pending',
         'None': 'None'
     };
@@ -275,7 +278,7 @@
         let extra = '';
         if (result.status === 'Wrong Answer' && result.actualOutput !== undefined) {
             extra = `<div class="result-output"><strong>Your Output:</strong>\n${escapeHtml(result.actualOutput)}</div>`;
-        } else if ((result.status === 'Compile Error' || result.status === 'Runtime Error') && result.errorMessage) {
+        } else if ((result.status === 'Compile Error' || result.status === 'Runtime Error' || result.status === 'Memory Leak') && result.errorMessage) {
             extra = `<div class="result-error"><strong>Error:</strong>\n${escapeHtml(result.errorMessage)}</div>`;
         }
 

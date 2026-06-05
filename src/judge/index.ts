@@ -11,6 +11,7 @@ export async function judgeFile(
     customExecutable?: string
 ): Promise<TestResult[]> {
     const results: TestResult[] = [];
+    const firstPassAcIndices: number[] = [];
 
     let executablePath: string;
 
@@ -33,7 +34,9 @@ export async function judgeFile(
     }
 
     try {
-        for (const tc of testCases) {
+        // First pass: normal run without ASan
+        for (let i = 0; i < testCases.length; i++) {
+            const tc = testCases[i];
             const pendingResult: TestResult = {
                 id: tc.id,
                 name: tc.name,
@@ -54,15 +57,20 @@ export async function judgeFile(
             }
             
             const validation = validate(runResult, tc.expectedOutput, config);
+            const isAc = validation.status === Status.Accepted;
+            if (isAc) {
+                firstPassAcIndices.push(i);
+            }
 
+            // If first pass is AC, temporarily show Pending until second pass confirms it
             const result: TestResult = {
                 id: tc.id,
                 name: tc.name,
-                status: validation.status,
+                status: isAc ? Status.Pending : validation.status,
                 time: displayTime,
                 memory: displayMemory,
-                actualOutput: validation.actualOutput,
-                errorMessage: validation.errorMessage,
+                actualOutput: isAc ? undefined : validation.actualOutput,
+                errorMessage: isAc ? undefined : validation.errorMessage,
             };
 
             results.push(result);
@@ -72,6 +80,48 @@ export async function judgeFile(
         // Only cleanup compiled executables, not user-provided ones
         if (!customExecutable) {
             cleanupExecutable(executablePath);
+        }
+    }
+
+    // Second pass: ASan verification for AC results (only for compiled C/C++)
+    if (firstPassAcIndices.length > 0 && !customExecutable) {
+        const ext = filePath.slice(filePath.lastIndexOf('.')).toLowerCase();
+        if (ext === '.cpp' || ext === '.c') {
+            const asanCompileResult = await compile(filePath, true);
+            if (asanCompileResult.success) {
+                const asanExe = asanCompileResult.executablePath!;
+                try {
+                    for (const idx of firstPassAcIndices) {
+                        const tc = testCases[idx];
+                        // No time/memory limit for ASan verification pass
+                        const noLimitConfig: JudgeConfig = {
+                            timeLimit: 999999999,
+                            memoryLimit: 999999,
+                        };
+                        const asanResult = await run(asanExe, tc.input, config, true);
+                        const asanValidation = validate(asanResult, tc.expectedOutput, noLimitConfig);
+
+                        if (asanValidation.status === Status.MemoryLeak || asanValidation.status === Status.RuntimeError) {
+                            results[idx] = {
+                                ...results[idx],
+                                status: asanValidation.status,
+                                errorMessage: asanValidation.errorMessage,
+                                actualOutput: asanValidation.actualOutput,
+                            };
+                        } else {
+                            // Second pass confirmed clean -> show AC
+                            results[idx] = {
+                                ...results[idx],
+                                status: Status.Accepted,
+                                errorMessage: undefined,
+                            };
+                        }
+                        onProgress?.(results[idx]);
+                    }
+                } finally {
+                    cleanupExecutable(asanExe);
+                }
+            }
         }
     }
 
