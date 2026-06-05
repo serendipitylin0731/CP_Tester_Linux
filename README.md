@@ -4,7 +4,7 @@
 
 > Editor: serendipity_lin@sjtu.edu.cn
 
-![alt text](media/sets/c3e14ac787413473c5e74efbd69ee80f.jpg)
+![alt text](https://raw.githubusercontent.com/serendipitylin0731/CP_Tester_Linux/main/media/sets/c3e14ac787413473c5e74efbd69ee80f.jpg)
 
 一款专为算法竞赛/编程练习或出题测试设计的 VS Code 插件，提供便捷的本地测试与评测功能。
 
