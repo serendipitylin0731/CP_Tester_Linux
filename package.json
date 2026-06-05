@@ -1,0 +1,95 @@
+{
+  "name": "cp-tester",
+  "displayName": "CP Tester",
+  "description": "A VS Code extension for program testing",
+  "version": "0.0.0",
+  "icon": "media/sets/2aa335b0c9913e5d01b2c17554b8e857.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serendipitylin0731/CP_Tester_Linux.git"
+  },
+  "publisher": "cp-tester",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Testing"
+  ],
+  "activationEvents": [
+    "onLanguage:cpp",
+    "onLanguage:c",
+    "onLanguage:python"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "cpTester",
+          "title": "CP Tester",
+          "icon": "$(debug-console)"
+        }
+      ]
+    },
+    "views": {
+      "cpTester": [
+        {
+          "type": "webview",
+          "id": "cpTester.panel",
+          "name": "Tester",
+          "icon": "$(debug-console)"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "cpTester.runTests",
+        "title": "Run Tests",
+        "icon": "$(play)"
+      },
+      {
+        "command": "cpTester.selectFolder",
+        "title": "Select Test Data Folder",
+        "icon": "$(folder-opened)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "cpTester.runTests",
+        "key": "ctrl+alt+t",
+        "when": "editorTextFocus && (editorLangId == cpp || editorLangId == c || editorLangId == python)"
+      }
+    ],
+    "configuration": {
+      "title": "CP Tester",
+      "properties": {
+        "cpTester.timeLimit": {
+          "type": "number",
+          "default": 1000,
+          "minimum": 1,
+          "maximum": 60000,
+          "description": "Default time limit in milliseconds"
+        },
+        "cpTester.memoryLimit": {
+          "type": "number",
+          "default": 256,
+          "minimum": 1,
+          "maximum": 2048,
+          "description": "Default memory limit in MiB"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  }
+}

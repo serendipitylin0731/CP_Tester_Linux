@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Compiled output
+out/
+build/
+*.js.map
+
+# VSIX package
+*.vsix
+
+# VS Code settings (optional)
+.vscode/
+
+# Test files
+test_*.js
+test_long.js
+test_short.js
+test_mem.js
+test_runner.js
+test_tasklist.js
+test_koffi*.js
+
+# Archives
+node.zip
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.zip

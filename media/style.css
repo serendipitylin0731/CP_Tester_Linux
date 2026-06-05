@@ -1,0 +1,292 @@
+body {
+    font-family: var(--vscode-font-family);
+    font-size: var(--vscode-font-size);
+    color: var(--vscode-foreground);
+    padding: 10px;
+    background: var(--vscode-editor-background);
+}
+
+#image-area {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--vscode-editor-background);
+}
+
+#status-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+#config-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+#config-area label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+
+#config-area input {
+    width: 70px;
+    background: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 3px;
+    padding: 3px 6px;
+}
+
+#actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+#actions button {
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: 3px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#actions button:hover {
+    background: var(--vscode-button-hoverBackground);
+}
+
+#btn-add {
+    font-weight: bold;
+}
+
+#btn-help {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    padding: 0;
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#help-panel {
+    font-size: 12px;
+    color: var(--vscode-descriptionForeground);
+    background: var(--vscode-textBlockQuote-background);
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+#help-panel p {
+    margin: 0 0 6px;
+}
+
+#help-panel p:last-child {
+    margin-bottom: 0;
+}
+
+#folder-info, #exe-info {
+    font-size: 12px;
+    color: var(--vscode-descriptionForeground);
+    margin-bottom: 10px;
+    padding: 6px;
+    background: var(--vscode-textBlockQuote-background);
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+#folder-info span {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#btn-exit-folder {
+    background: none;
+    border: none;
+    color: var(--vscode-errorForeground);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.test-case {
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.test-case-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.test-case-remove {
+    background: none;
+    border: none;
+    color: var(--vscode-errorForeground);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0 4px;
+}
+
+.test-case textarea {
+    width: 100%;
+    min-height: 60px;
+    background: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 3px;
+    padding: 6px;
+    font-family: var(--vscode-editor-font-family);
+    font-size: 12px;
+    resize: vertical;
+    box-sizing: border-box;
+    margin-bottom: 6px;
+}
+
+.test-case label {
+    font-size: 11px;
+    color: var(--vscode-descriptionForeground);
+    display: block;
+    margin-bottom: 2px;
+}
+
+.result-item {
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.result-name {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.result-status {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.status-Accepted { background: #1e4620; color: #22ff35; }
+.status-Pending { background: #1a2a3a; color: #1E90FF; }
+.status-Compile-Error { background: #3d3d00; color: #f1ff29; }
+.status-Runtime-Error { background: #3d3d00; color: #f1ff29; }
+.status-Memory-Limit-Exceeded { background: #3d2a00; color: #ff9f31; }
+.status-Time-Limit-Exceeded { background: #3d2a00; color: #ff9f31; }
+.status-Wrong-Answer { background: #3d0f0f; color: #df2500; }
+.status-None { background: #2c2c2c; color: #888888; }
+
+.result-meta {
+    font-size: 11px;
+    color: var(--vscode-descriptionForeground);
+    margin-bottom: 6px;
+}
+
+.result-output, .result-error {
+    background: var(--vscode-textBlockQuote-background);
+    padding: 6px;
+    border-radius: 3px;
+    font-family: var(--vscode-editor-font-family);
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.result-error {
+    color: var(--vscode-errorForeground);
+}
+
+.folder-case {
+    padding: 8px 10px;
+}
+
+.folder-case .test-case-header {
+    margin-bottom: 4px;
+}
+
+.result-area {
+    margin-top: 6px;
+    min-height: 0;
+}
+
+.result-area:empty {
+    display: none;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px 0 6px;
+    color: var(--vscode-foreground);
+}
+
+#case-status-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.case-status-pill {
+    min-width: 48px;
+    height: 28px;
+    border-radius: 14px;
+    background: #3c3c3c;
+    transition: background 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.case-status-text {
+    font-size: 10px;
+    font-weight: bold;
+    color: #1e1e1e;
+    line-height: 1;
+    white-space: nowrap;
+}

@@ -1,0 +1,14 @@
+.git/
+.gitignore
+.vscode/
+build/
+*.vsix
+*.zip
+node.zip
+test_*.js
+test_long.js
+test_short.js
+test_mem.js
+test_runner.js
+test_tasklist.js
+test_koffi*.js
